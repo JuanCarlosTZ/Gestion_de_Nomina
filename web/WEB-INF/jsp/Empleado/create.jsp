@@ -22,33 +22,35 @@
                <form:errors path="*" element="div" cssClass="alert alert-danger"/>
                 <p>
                    <label for="cedula">Cedula</label>
-                    <input name="cedula" class="form-control" value="${empleado.cedula}" />
-
+                   <input name="cedula"  class="form-control" value="${empleado.cedula}" type="text" placeholder="Cédula" minlength="11" maxlength="11" required pattern="[0-9]+" />
+                    
 
                 </p>
                 <p>
                     <label for="nombre">Nombre</label>
-                    <input name="nombre" class="form-control" value="${empleado.nombre} " />
+                    <input name="nombre" class="form-control" value="${empleado.nombre}" type="text" placeholder="Nombre" minlength="3" maxlength="50" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"  />
                  </p>
                 <p>
                     <label>Departamento</label>
-                    <input name="departamento" class="form-control" value="${empleado.departamento} "/>
+                    <input name="departamento" class="form-control" value="${empleado.departamento}" type="text" placeholder="Departamento" minlength="1" maxlength="50" required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"  />
                 </p>
                 <p>
                     <label>Puesto</label>
-                    <input name="puesto" class="form-control" value="${empleado.puesto} "/>
+                    <input name="puesto" class="form-control" value="${empleado.puesto}"  type="text" placeholder="Puesto" minlength="1" maxlength="50"  required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"    />
                 </p>
                 <p>
                     <label>Salario</label>
-                    <input name="salario" class="form-control" value="${empleado.salario} "/>
+                    <input name="salario" class="form-control" value="${empleado.salario}" type="text" placeholder="Salario" minlength="1" maxlength="9" required pattern="[0-9]+([\.][0-9]{0,2})?"  />
                </p>
                <p>
                     <label>Cuenta</label>
-                    <input name="cuenta" class="form-control" value="${empleado.cuenta} "/>
+                    <input name="cuenta" class="form-control" value="${empleado.cuenta}" type="text" minlength="1" maxlength="20" placeholder="Cuenta" required pattern="[0-9]+"  />
                </p>
                <p>
-                    <label>Id de la Nomina</label>
-                    <input name="idNomina" class="form-control" value="${empleado.idNomina} "/>
+                    <label>Nomina</label>
+                    <form:select path ="idNomina" cssClass="form-control">
+                        <form:option value = "1">Nomina</form:option>
+                    </form:select>
                </p>
 
 

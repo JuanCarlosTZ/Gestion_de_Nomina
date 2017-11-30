@@ -29,20 +29,26 @@
                 <form:errors path="*" element="div" cssClass="alert alert-danger"/>
                 <p>
                     <form:label path="id">Identificador</form:label>
-                    <form:input path = "id" cssClass="form-control"/>
+                    <form:input path = "id" cssClass="form-control" readonly="true"/>
                 </p> 
                 <p>
                     <form:label path="nombre">Nombre</form:label>
-                    <form:input path = "nombre" cssClass="form-control"/>
+                    <form:input path = "nombre" cssClass="form-control"  pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"   />
                 </p>  
                 <p>
                     <form:label path="dependeDeSalario">Depende de Salario</form:label>
-                    <form:input path = "dependeDeSalario" cssClass="form-control"/>
+                    <input type="radio" name="dependeDeSalario"  value="1" <c:if test="${tipoIngresoModel.dependeDeSalario==1}">checked</c:if> />
+                    <label for="contactChoice2">SI</label>
+                    <input type="radio" name="dependeDeSalario"  value="0" <c:if test="${tipoIngresoModel.dependeDeSalario==0}">checked</c:if>/>
+                    <label for="contactChoice2">NO</label>
 
                 </p>
                 <p>
                     <form:label path="estado">Estado</form:label>
-                    <form:input path = "estado" cssClass="form-control"/>
+                    <form:select path ="estado" cssClass="form-control">
+                        <form:option value = "ACTIVO"  >ACTIVO</form:option>
+                        <form:option value = "INACTIVO">INACTIVO</form:option>
+                    </form:select>
                 </p>
       
 

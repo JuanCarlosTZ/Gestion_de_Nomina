@@ -30,20 +30,26 @@
                 <form:errors path="*" element="div" cssClass="alert alert-danger"/>
                 <p>
                     <form:label path="id">Identificador</form:label>
-                    <form:input path = "id" cssClass="form-control"/>
+                    <form:input path = "id" cssClass="form-control" readonly="true"/>
                 </p> 
                 <p>
                     <form:label path="tipoTransaccion">Tipo de Transacción</form:label>
-                    <form:input path = "tipoTransaccion" cssClass="form-control"/>
+                    <form:select path ="tipoTransaccion" cssClass="form-control">
+                        <form:option value = "INGRESO"  >INGRESO</form:option>
+                        <form:option value = "DEDUCCION">DEDUCCION</form:option>
+                    </form:select>
                 </p>  
                 <p>
                     <form:label path="nombreTipoTransaccion">Descripción</form:label>
-                    <form:input path = "nombreTipoTransaccion" cssClass="form-control"/>
+                    <input path = "nombreTipoTransaccion" cssClass="form-control"  required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"   />
 
                 </p>
                 <p>
-                    <form:label path="idEmpleado">Id del Empleado</form:label>
-                    <form:input path = "idEmpleado" cssClass="form-control"/>
+                    <form:label path="idEmpleado">Empleado</form:label>
+                    <form:select path ="idEmpleado"  cssClass="form-control">
+                        <form:option value = ""></form:option>
+                        <form:options  items="${listaEmpleadoModel}" itemLabel="nombre" itemValue="id" />
+                    </form:select>
                 </p>
                 <p>
                     <form:label path="fecha">Fecha</form:label>
@@ -51,11 +57,13 @@
                 </p>
                 <p>
                     <form:label path="monto">Monto</form:label>
-                    <form:input path = "monto" cssClass="form-control"/>
+                    <input name="monto" class="form-control" value="${transaccionModel.monto}" type="text" placeholder="Monto" minlength="1" maxlength="9" required pattern="[0-9]+([\.][0-9]{0,2})?"  />
                 </p>
                 <p>
-                    <form:label path="estado">Estado</form:label>
-                    <form:input path = "estado" cssClass="form-control"/>
+                    <form:select path ="estado" cssClass="form-control">
+                        <form:option value = "ACTIVO"  >ACTIVO</form:option>
+                        <form:option value = "INACTIVO">INACTIVO</form:option>
+                    </form:select>
                 </p>
       
 

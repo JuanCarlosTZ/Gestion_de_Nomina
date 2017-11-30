@@ -22,15 +22,21 @@
                <form:errors path="*" element="div" cssClass="alert alert-danger"/>
                 <p>
                    <label for="nombre">Nombre</label>
-                    <input name="nombre" class="form-control" value="${tipoIngresoModel.nombre}" />
+                    <input name="nombre" class="form-control" value="${tipoIngresoModel.nombre}" type="text" placeholder="Nombre" minlength="1" maxlength="50"  required pattern="[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}+[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ]{2,25}"     />
                 </p>
                 <p>
                     <label for="dependeDeSalario">Depende de Salario</label>
-                    <input name="dependeDeSalario" class="form-control" value="${tipoIngresoModel.dependeDeSalario} " />
+                    <input type="radio" name="dependeDeSalario"  value="1" />
+                    <label for="contactChoice2">SI</label>
+                    <input type="radio" name="dependeDeSalario"  value="0" />
+                    <label for="contactChoice2">NO</label>
                  </p>
                 <p>
                     <label>Estado</label>
-                    <input name="estado" class="form-control" value="${tipoIngresoModel.estado} "/>
+                    <form:select path ="estado" cssClass="form-control">
+                        <form:option value = "ACTIVO"  >ACTIVO</form:option>
+                        <form:option value = "INACTIVO">INACTIVO</form:option>
+                    </form:select>
                 </p>
 
 

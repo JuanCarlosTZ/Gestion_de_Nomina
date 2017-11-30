@@ -42,7 +42,8 @@
                             <c:out value="${tipoIngreso.getNombre()}"/>
                         </td>
                         <td>
-                            <c:out value="${tipoIngreso.getDependeDeSalario()}"/>
+                            <c:if test="${tipoIngreso.getDependeDeSalario()==1}"> <c:out value="SI" /></c:if>
+                            <c:if test="${tipoIngreso.getDependeDeSalario()==0}"> <c:out value="NO" /></c:if>
                         </td>
                         <td>
                             <c:out value="${tipoIngreso.getEstado()}"/>

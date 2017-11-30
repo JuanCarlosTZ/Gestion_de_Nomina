@@ -22,15 +22,21 @@
                <form:errors path="*" element="div" cssClass="alert alert-danger"/>
                 <p>
                    <label for="tipoTransaccion">Tipo de Transacción</label>
-                    <input name="tipoTransaccion" class="form-control" value="${transaccionModel.tipoTransaccion}" />
+                    <form:select path ="tipoTransaccion" cssClass="form-control">
+                        <form:option value = "INGRESO"  >INGRESO</form:option>
+                        <form:option value = "DEDUCCION">DEDUCCION</form:option>
+                    </form:select>
                 </p>
                 <p>
                     <label for="nombreTipoTransaccion">Descripción</label>
                     <input name="nombreTipoTransaccion" class="form-control" value="${transaccionModel.nombreTipoTransaccion} " />
                  </p>
                 <p>
-                    <label for="idEmpleado">Id del Empleado</label>
-                    <input name="idEmpleado" class="form-control"  value="${transaccionModel.idEmpleado} " />
+                    <label for="idEmpleado">Empleado</label>
+                    <form:select path ="idEmpleado" cssClass="form-control">
+                        <form:option value = ""></form:option>
+                        <form:options items="${listaEmpleadoModel}" itemLabel="nombre" itemValue="id"/>
+                    </form:select>
                  </p>
                  <p>
                     <label for="fecha">Fecha</label>
@@ -38,11 +44,14 @@
                  </p>
                  <p>
                     <label for="monto">Monto</label>
-                    <input name="monto" class="form-control" value="${transaccionModel.monto} " />
+                    <input name="monto" class="form-control" value="${transaccionModel.monto}" type="text" placeholder="Monto" minlength="1" maxlength="9" required pattern="[0-9]+([\.][0-9]{0,2})?"  />
                  </p>
                  <p>
                     <label for="estado">Estado</label>
-                    <input name="estado" class="form-control" value="${transaccionModel.estado} " />
+                    <form:select path ="estado" cssClass="form-control">
+                        <form:option value = "ACTIVO"  >ACTIVO</form:option>
+                        <form:option value = "INACTIVO">INACTIVO</form:option>
+                    </form:select>
                  </p>
 
                 <input type="submit" value="Enviar" class="btn btn-danger" />

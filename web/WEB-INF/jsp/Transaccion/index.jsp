@@ -48,7 +48,11 @@
                             <c:out value="${transaccion.getNombreTipoTransaccion()}"/>
                         </td>
                         <td>
-                            <c:out value="${transaccion.getIdEmpleado()}"/>
+                            <c:forEach var = "empleado" items="${listaEmpleadoModel}">
+                                <c:if test = "${empleado.getId() == transaccion.getIdEmpleado()}">
+                                    <c:out value="${empleado.getNombre()}"/>
+                                </c:if> 
+                             </c:forEach>
                         </td>
                         <td>
                             <c:out value="${transaccion.getFecha()}"/>

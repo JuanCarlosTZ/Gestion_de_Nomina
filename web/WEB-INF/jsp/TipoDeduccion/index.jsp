@@ -42,7 +42,8 @@
                             <c:out value="${tipoDeduccion.getNombre()}"/>
                         </td>
                         <td>
-                            <c:out value="${tipoDeduccion.getDependeDeSalario()}"/>
+                            <c:if test="${tipoDeduccion.getDependeDeSalario()==1}"> <c:out value="SI" /></c:if>
+                            <c:if test="${tipoDeduccion.getDependeDeSalario()==0}"> <c:out value="NO" /></c:if>
                         </td>
                         <td>
                             <c:out value="${tipoDeduccion.getEstado()}"/>

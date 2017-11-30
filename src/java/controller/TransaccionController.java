@@ -6,6 +6,7 @@
 package controller;
 
 
+import administrator.EmpleadoAdministrator;
 import administrator.Reporte;
 import administrator.TransaccionAdministrator;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +31,7 @@ public class TransaccionController {
         //Intancia de las clases ModelAndView, EmpleadoAdministrador y una lista de EmpleadosModel
         ModelAndView mav = new ModelAndView();
         TransaccionAdministrator transaccionAdministrator = new TransaccionAdministrator();
+        EmpleadoAdministrator empleadoAdministrator = new EmpleadoAdministrator();
         
         ModeloContenido modeloContenido = new ModeloContenido();
         modeloContenido.setTitulo("Lista");
@@ -37,6 +39,7 @@ public class TransaccionController {
         modeloContenido.setRuta("../");
         mav.addObject("modeloContenido", modeloContenido);
         
+        mav.addObject("listaEmpleadoModel",empleadoAdministrator.readAll());
         mav.addObject("listaTransaccionModel", transaccionAdministrator.readAll());
         mav.setViewName("layout");
         return (mav);
@@ -49,6 +52,7 @@ public class TransaccionController {
         
         //Pasar una instancia vacia de EmpleadoModel al modelo
         ModelAndView mav = new ModelAndView();
+        EmpleadoAdministrator empleadoAdministrator = new EmpleadoAdministrator();
         
         ModeloContenido modeloContenido = new ModeloContenido();
         modeloContenido.setTitulo("Agregando Transaccion");
@@ -56,6 +60,7 @@ public class TransaccionController {
         modeloContenido.setRuta("../");
         mav.addObject("modeloContenido", modeloContenido);
         
+        mav.addObject("listaEmpleadoModel",empleadoAdministrator.readAll());   
         mav.addObject("transaccionModel", new TransaccionModel());
         mav.setViewName("layout");            
         return mav;
@@ -95,12 +100,14 @@ public class TransaccionController {
     public ModelAndView Edit(HttpServletRequest request) {
         ModelAndView mav = new ModelAndView();
         
+        EmpleadoAdministrator empleadoAdministrator = new EmpleadoAdministrator();
         ModeloContenido modeloContenido = new ModeloContenido();
         modeloContenido.setTitulo("Actualización de Transaccion");
         modeloContenido.setPagina("Transaccion/edit");
         modeloContenido.setRuta("../");
         mav.addObject("modeloContenido", modeloContenido);
         
+        mav.addObject("listaEmpleadoModel",empleadoAdministrator.readAll()); 
         int id = Integer.parseInt(request.getParameter("id"));
         TransaccionModel transaccionModel = new TransaccionAdministrator().read(id);
         mav.setViewName("layout");
@@ -114,7 +121,8 @@ public class TransaccionController {
         @RequestMapping(value = "Transaccion/edit.htm", method = RequestMethod.POST)
     public ModelAndView Edit(TransaccionModel transaccionModel) {
         
-        ModelAndView mav = new ModelAndView();        
+        ModelAndView mav = new ModelAndView();    
+        EmpleadoAdministrator empleadoAdministrator = new EmpleadoAdministrator();
         TransaccionAdministrator transaccionAdministrator = new TransaccionAdministrator();
         
         ModeloContenido modeloContenido = new ModeloContenido();
@@ -127,7 +135,7 @@ public class TransaccionController {
             
         }    
         
-                
+        mav.addObject("listaEmpleadoModel",empleadoAdministrator.readAll()); 
         modeloContenido.setTitulo("Actualización de Transaccion");
         modeloContenido.setPagina("Transaccion/edit");
         modeloContenido.setRuta("../");
