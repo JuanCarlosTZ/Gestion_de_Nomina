@@ -8,15 +8,38 @@ package controller;
 
 import administrator.EmpleadoAdministrator;
 import administrator.Reporte;
+import administrator.ServicioAdministrador;
 import administrator.TransaccionAdministrator;
+import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.scene.control.Alert;
 import javax.servlet.http.HttpServletRequest;
+import javax.swing.JOptionPane;
+import javax.ws.rs.Consumes;
 import model.AsientoContable;
 import model.ModeloContenido;
 import model.TransaccionModel;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.ws.rs.GET;
+import static javax.ws.rs.HttpMethod.POST;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
@@ -25,6 +48,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class TransaccionController {
+    
+            java.sql.Date fechaInicio = null;
+        java.sql.Date fechaFin = null;
+        String generarAsiento = "FALSO";
           
     @RequestMapping(value= "Transaccion/index.htm", method = RequestMethod.GET)
     public ModelAndView Index(){
@@ -170,7 +197,7 @@ public class TransaccionController {
 
     
     }
-    
+   
     @RequestMapping(value= "Transaccion/report.htm", method = RequestMethod.GET)
     public ModelAndView Report(){
         //Intancia de las clases ModelAndView, EmpleadoAdministrador y una lista de EmpleadosModel
@@ -185,6 +212,105 @@ public class TransaccionController {
         
         mav.addObject("listaReporte", reporte.asientoContable(null, null));
         mav.setViewName("layout");
+        
+        /*
+           // display to console
+   Object json = objectMapper.readValue(
+     objectMapper.writeValueAsString(employee), Object.class);
+
+   System.out.println(objectMapper.writerWithDefaultPrettyPrinter()
+     .writeValueAsString(json));
+        */
+
         return (mav);
     }
+    
+    
+    
+    
+    @RequestMapping(value = "Transaccion/asientoContable.htm", method = RequestMethod.GET)
+    public ModelAndView EnviarAsiento(int id) {
+        
+        //Intancia de las clases ModelAndView, EmpleadoAdministrador y una lista de EmpleadosModel
+        ModelAndView mav = new ModelAndView();
+        Reporte reporte = new Reporte();
+        administrator.ServicioAdministrador  servicioAdministrador = new ServicioAdministrador();
+        
+        ModeloContenido modeloContenido = new ModeloContenido();
+        modeloContenido.setTitulo("Asiento Contable");
+        modeloContenido.setPagina("Transaccion/report");
+        modeloContenido.setRuta("../");
+        mav.addObject("modeloContenido", modeloContenido);
+        
+        List<AsientoContable> listaAsientoContable = reporte.asientoContable(null, null);
+        
+        int idAsientoGenerado = servicioAdministrador.EnviarAsiento(listaAsientoContable);
+        
+
+        if(idAsientoGenerado>0){
+            modeloContenido.setMensage("Se ha generado el asiento "+idAsientoGenerado);
+        }else{
+            modeloContenido.setMensage("Ha ocurrido un error");
+        }
+
+        mav.addObject("listaReporte", listaAsientoContable );
+        mav.setViewName("layout");
+
+        
+                return (mav);
+
+    }
+    
+    
+      @RequestMapping(value = "Transaccion/report.htm", method = RequestMethod.POST)
+    public ModelAndView Consulta(String fecha1, String fecha2) {
+        
+        //Intancia de las clases ModelAndView, EmpleadoAdministrador y una lista de EmpleadosModel
+        ModelAndView mav = new ModelAndView();
+        Reporte reporte = new Reporte();
+        administrator.ServicioAdministrador  servicioAdministrador = new ServicioAdministrador();
+        
+        ModeloContenido modeloContenido = new ModeloContenido();
+        modeloContenido.setTitulo("Asiento Contable");
+        modeloContenido.setPagina("Transaccion/report");
+        modeloContenido.setRuta("../");
+        mav.addObject("modeloContenido", modeloContenido);
+        
+        java.sql.Date fechaInicio = null;
+        java.sql.Date fechaFin = null;
+
+        
+        try{
+            fechaInicio = new java.sql.Date( new SimpleDateFormat("yyyy-MM-dd").parse(fecha1.toString()).getTime());
+            fechaFin = new java.sql.Date( new SimpleDateFormat("yyyy-MM-dd").parse(fecha2.toString()).getTime());
+            
+        }catch(Exception err){
+            String a = "";
+        }
+        
+        List<AsientoContable> listaAsientoContable = reporte.asientoContable(fechaInicio, fechaFin);
+        int idAsientoGenerado;
+
+        if(listaAsientoContable.size() > 0)
+        {
+        idAsientoGenerado = servicioAdministrador.EnviarAsiento(listaAsientoContable);
+
+        if(idAsientoGenerado>0){
+            modeloContenido.setMensage("Se ha generado el asiento "+idAsientoGenerado);
+        }
+        }
+
+        mav.addObject("fecha1", fecha1 );
+        mav.addObject("fecha2", fecha2  );
+        mav.addObject("listaReporte", listaAsientoContable );
+        mav.setViewName("layout");
+
+        
+                return (mav);
+
+    }
+    
+
+    
+
 }

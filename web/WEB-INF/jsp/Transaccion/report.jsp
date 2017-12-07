@@ -20,18 +20,31 @@
                     <c:if test = "${modeloContenido.getError() != null}">
                     <div class="alert alert-danger">${modeloContenido.getError()}</div>
                  </c:if>
+                    
+              
             <p>
-                <a href="<c:url value="#" />" class="btn btn-success"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Agregar</a>
+                <form:form action="report.htm" method="POST">
+                  <p>
+                    <label for="fecha">Fecha Inicio</label>
+                    <input name="fecha1" class="form-control" type="date" value="${fecha1} " />
+                 </p>
+                 <p>
+                    <label for="fecha">Fecha Fin</label>
+                    <input name="fecha2" class="form-control" type="date" value="${fecha2} " />
+                 </p>
+                 <input type="submit" value="Enviar Asiento" class="btn btn-success" />
+            </form:form>
             </p>
+           
 
             <table class="table table-bordered table-striped table-hover">
                 <thead>
-                   
+
                     <th>Identificador</th>
                     <th>Cuenta</th>
                     <th>Tipo de Movimiento</th>
                     <th>Monto</th>
-                    <th>Fecha</th>
+
                     <th></th>
                 </thead>
                 <c:forEach var = "reporte" items="${listaReporte}" >
@@ -48,13 +61,11 @@
                         <td>
                             <c:out value="${reporte.getMonto()}"/>
                         </td>
-                        <td>
-                            <c:out value="${reporte.getFecha()}"/>
-                        </td>
+
 
                         
                         <td>
-                            <a href="<c:url value="#" />"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
+                            <a href="<c:url value="asientoContable.htm?id=${reporte.getId()}" />"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
                             <a href="<c:url  value="#" />" onclick="return confirm('Presione OK para eliminar el registro.')"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
 
 
@@ -65,3 +76,8 @@
                
             </table>
         </div>
+            
+            
+            
+            
+            

@@ -5,6 +5,15 @@
  */
 package model;
 
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
+import java.net.URL;
+import java.util.Date;
+import sun.net.www.http.HttpClient;
+
 
 /**
  *
@@ -78,6 +87,46 @@ public class AsientoContable {
 
     public void setFecha3(java.util.Date fecha3) {
         this.fecha3 = fecha3;
+    }
+    
+    public int postEntry(String description, int auxiliar, int account, String movementType, Date date, double amount, String status) throws ProtocolException, MalformedURLException, IOException{
+    
+        
+        final String url = "http://example.com";
+        
+  
+/*
+        
+        String body = "{'Description': "+description+","
+                + "'AuxiliarId': "+auxiliar+","
+                + "'AccountId': "+account+","
+                + "'MovementType': "+movementType+","
+                + "'EntryDate': "+date+","
+                + "'EntryAmount': "+amount+","
+                + "'Status': "+status+"";
+        URL url = new URL("http://accountingsystem.azurewebsites.net/Api/Entries");
+                
+      
+        
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setConnectTimeout(5000);//5 secs
+            connection.setReadTimeout(5000);//5 secs
+
+            connection.setRequestMethod("POST");
+            connection.setDoOutput(true);
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            OutputStreamWriter out = new OutputStreamWriter(connection.getOutputStream());  
+            out.write(body);
+            out.flush();
+            out.close();
+
+        int res = connection.getResponseCode();
+        
+        String response = connection.getContent().toString();
+*/
+        return 1;
+
     }
 
     
