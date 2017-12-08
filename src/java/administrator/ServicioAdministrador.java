@@ -93,8 +93,10 @@ public class ServicioAdministrador {
     
    public String getJson(List<AsientoContable> listaAsientoContable){
        
-       int idCredito = 70;
-       int idDebito = 71;
+       int idCredito = 4;
+       int idDebito = 5;
+
+
        int idAuxiliar = 2;
        float balanceCredito = 0;
        float balanceDebito = 0;
@@ -108,8 +110,29 @@ public class ServicioAdministrador {
               balanceDebito =+ asientoContable.getMonto();
           }
           
-      }
+      } 
       
+      String json = "{\n" +
+            "  \"Description\": \"Asiento de Nominas correspondiente al periodo 2017-12-01\",\n" +
+            "  \"AuxiliarId\": "+idAuxiliar+",\n" +
+            "  \"AccountId\": "+idDebito+",\n" +
+            "  \"MovementType\": \"DB\",\n" +
+            "  \"EntryDate\": \"2017-12-07T07:42:32.3268517+00:00\",\n" +
+            "  \"EntryAmount\": "+balanceDebito+",\n" +
+            "  \"Status\": \"ACTIVO\"\n" +
+            "}";
+      
+      json += "{\n" +
+            "  \"Description\": \"Asiento de Nominas correspondiente al periodo 2017-12-01\",\n" +
+            "  \"AuxiliarId\": "+idAuxiliar+",\n" +
+            "  \"AccountId\": "+idCredito+",\n" +
+            "  \"MovementType\": \"CR\",\n" +
+            "  \"EntryDate\": \"2017-12-07T07:42:32.3268517+00:00\",\n" +
+            "  \"EntryAmount\": "+balanceCredito+",\n" +
+            "  \"Status\": \"ACTIVO\"\n" +
+            "}";
+      
+            /*
       String json = "{\n" +
             "  \"EntryId\": 1,\n" +
             "  \"Description\": \"Asiento de Nominas correspondiente al periodo 2017-12-01\",\n" +
@@ -129,7 +152,7 @@ public class ServicioAdministrador {
             "  \"EntryDate\": \"2017-12-07T07:42:32.3268517+00:00\",\n" +
             "  \"EntryAmount\": "+balanceDebito+",\n" +
             "  \"Status\": \"ACTIVO\"\n" +
-            "}";
+            "}";*/
       
       return json;
       

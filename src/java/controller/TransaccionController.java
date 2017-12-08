@@ -281,8 +281,19 @@ public class TransaccionController {
 
         
         try{
-            fechaInicio = new java.sql.Date( new SimpleDateFormat("yyyy-MM-dd").parse(fecha1.toString()).getTime());
-            fechaFin = new java.sql.Date( new SimpleDateFormat("yyyy-MM-dd").parse(fecha2.toString()).getTime());
+            if(fecha1.length()==0)
+            {
+                 fechaInicio = null;
+            }else{ 
+                fechaInicio = new java.sql.Date( new SimpleDateFormat("yyyy-MM-dd").parse(fecha1).getTime());
+            }
+            if(fecha2.length()==0){
+                fechaFin = null;
+            }else{
+                 fechaFin = new java.sql.Date( new SimpleDateFormat("yyyy-MM-dd").parse(fecha2).getTime());
+                }
+            
+           
             
         }catch(Exception err){
             String a = "";
@@ -293,11 +304,15 @@ public class TransaccionController {
 
         if(listaAsientoContable.size() > 0)
         {
-        idAsientoGenerado = servicioAdministrador.EnviarAsiento(listaAsientoContable);
+            try{
+                idAsientoGenerado = servicioAdministrador.EnviarAsiento(listaAsientoContable);
 
-        if(idAsientoGenerado>0){
-            modeloContenido.setMensage("Se ha generado el asiento "+idAsientoGenerado);
-        }
+                if(idAsientoGenerado>0){
+                    modeloContenido.setMensage("Se ha generado el asiento "+idAsientoGenerado);
+                }
+            }catch(Exception e){
+                modeloContenido.setError("El servicio de Contabilidad no está disponible");
+            }
         }
 
         mav.addObject("fecha1", fecha1 );
