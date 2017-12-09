@@ -99,12 +99,14 @@ public class TransaccionController {
         
         ModelAndView mav = new ModelAndView();        
         TransaccionAdministrator transaccionAdministrator = new TransaccionAdministrator();
+        EmpleadoAdministrator empleadoAdministrator = new EmpleadoAdministrator();
         
         ModeloContenido modeloContenido = new ModeloContenido();
         modeloContenido.setTitulo("Agregando Transaccion");
         modeloContenido.setPagina("Transaccion/create");
         modeloContenido.setRuta("../");
         mav.addObject("modeloContenido", modeloContenido);
+        mav.addObject("listaEmpleadoModel",empleadoAdministrator.readAll()); 
         
         if(transaccionAdministrator.create(transaccionModel)){            
             
